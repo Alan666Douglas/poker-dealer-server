@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% if mystatus['dealer'] != mystatus['name'] %}
+{% endif %}
+<title>Player {{mystatus['name']}}</title>
+{% endblock %}
+
+{% block body %}
+<h1>Admin mode {{mystatus['name'] }}</h1>
+<h3>The dealer is {{mystatus['dealer']}}</h3>
+<h3>The current phase is {{mystatus['phase']}}</h3>
+
+  <h2>Registerd players</h2>
+  {% if players %}
+  <ul class="nobul">
+    {% for player in players %}
+    <li>{{player}}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <h3>
+    <a href="/player/{{name}}" class="button bluebutton"> Return </a>
+  </h3>
+
+
+  <h3>
+  <a href="/deal/{{mystatus['name']}}" class="button">Force {{mystatus['phase']}} </a>
+  </h3>
+
+  <h3>
+    <a href="/admin/reset" class="button redbutton"> Reset </a>
+  </h3>
+
+{% endblock %}

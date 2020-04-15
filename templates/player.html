@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+{% if mystatus['dealer'] != mystatus['name'] %}
+{% endif %}
+<meta http-equiv="refresh" content="2; url=/player/{{ mystatus['name'] }}">
+<title>Player {{mystatus['name']}}</title>
+{% endblock %}
+
+{% block body %}
+<h1>Player - {{ mystatus['name'] }}</h1>
+{{ mystatus['message'] }}
+
+{% if mystatus['dealer'] == mystatus['name'] %}
+<h3>You are the dealer</h3>
+{% else %}
+<h3>The dealer is {{mystatus['dealer']}}</h3>
+  {% endif %}
+<table>
+  <tr>
+    <th>Hole</th>
+    <th>Flop</th>
+    <th>Turn</th>
+    <th>River</th>
+  </tr>
+
+  <tr>
+    <td>{{ mystatus['hole'] }}</td>
+    <td>{{ mystatus['flop'] }}</td>
+    <td>{{ mystatus['turn'] }}</td>
+    <td>{{ mystatus['river'] }}</td>
+  </tr>
+</table>
+
+  <h2>Registerd players</h2>
+  {% if players %}
+  <ul class="nobul">
+    {% for player in players %}
+    <li>{{player}}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+
+{% if mystatus['dealer'] == mystatus['name'] %}
+  <h2>
+  <a href="/deal/{{mystatus['name']}}" class="button">Press for {{mystatus['phase']}} </a>
+  </h2>
+{% endif %}
+
+  <h2>Something wrong?</h2>
+  <h3>
+    <a href="/admin/{{mystatus['name']}}" class="button bluebutton"> Admin </a>
+  </h3>
+
+{% endblock %}

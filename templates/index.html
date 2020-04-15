@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<h1>Regester</h1>
+<div>{{ message }}</div>
+<form action="/" method="POST">
+  <input type="text"  name="name" id="content" autofocus>
+  <input type="submit" value="Submit Name">
+</form>
+
+<h2>Registerd players</h2>
+{% if players %}
+<ul class="nobul">
+  {% for player in players %}
+  <li>{{player}}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}
