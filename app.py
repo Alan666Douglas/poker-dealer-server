@@ -10,7 +10,7 @@ def initialize():
 
     state = {
         'players': {},
-        'flop': "** ** **",
+        'flop': ["**", "**", "**"],
         'turn': "**",
         'river': "**",
         'phase': "shuffle",
@@ -23,6 +23,16 @@ def initialize():
 
 def myplayer(name):
     try:
+        hole = state['players'][name]['hole']
+        flop = state['flop']
+        turn = state['turn']
+        river = state['river']
+        table_suits = [hole[0][-1], hole[1][-1],
+                       flop[0][-1], flop[1][-1], flop[2][-1],
+                       turn[-1], river[-1]]
+        #table_suits = [hole[1],hole[3],flop[1],flop[3],flop[5],turn[1],river[1]]
+        print(table_suits)
+
         return {'name': name,
                 'hole': state['players'][name]['hole'],
                 'flop': state['flop'],
@@ -30,7 +40,9 @@ def myplayer(name):
                 'river': state['river'],
                 'dealer': state['dealer_name'],
                 'phase': state['phase'],
-                'message': state['message']}
+                'message': state['message'],
+                'suits': table_suits
+        }
     except:
         page_not_found(404)
 
@@ -55,11 +67,11 @@ def deal_card():
 
 
 def hole():
-    return "{} {}".format(deal_card(), deal_card())
+    return [deal_card(), deal_card()]
 
 
 def flop():
-    return "{} {} {}".format(deal_card(), deal_card(), deal_card())
+    return [deal_card(), deal_card(), deal_card()]
 
 
 def turn():
@@ -76,10 +88,10 @@ def nextdeal():
     num_players = len(players)
     state['dealer'] = (state['dealer'] + 1) % num_players
     for player in players:
-        state['players'][player]['hole'] = "** **"
+        state['players'][player]['hole'] = ["**", "**"]
         if state['players'][player]['position'] == state['dealer']:
             state['dealer_name'] = player
-    state['flop'] = "** ** **"
+    state['flop'] = ["**", "**", "**"]
     state['turn'] = "**"
     state['river'] = "**"
 

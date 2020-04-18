@@ -6,30 +6,67 @@
 {% endif %}
 <meta http-equiv="refresh" content="2; url=/player/{{ mystatus['name'] }}">
 <title>Player {{mystatus['name']}}</title>
+<style>
+ .container {position: absolute; left: 20px}
+ .card {
+   border: none;
+   color: white;
+   padding: 15px 10px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   margin: 4px 2px;
+   cursor: pointer;
+   font-size: 1.5em;
+   block-size: 1.5em;
+   inline-size: 45px;
+ }
+ .h {background-color: #C00;}
+ .c {background-color: #4A5;}
+ .d {background-color: #44F;}
+ .s {background-color: #222;}
+</style>
 {% endblock %}
 
 {% block body %}
-<h1>Player - {{ mystatus['name'] }}</h1>
+<div class="container" >
+<h1>Player - {{ mystatus['name'] }}
+  {% if mystatus['dealer'] == mystatus['name'] %} You are the dealer
+  {% else %} The dealer is {{mystatus['dealer']}} {% endif %}
+</h1>
 {{ mystatus['message'] }}
 
-{% if mystatus['dealer'] == mystatus['name'] %}
-<h3>You are the dealer</h3>
-{% else %}
-<h3>The dealer is {{mystatus['dealer']}}</h3>
-  {% endif %}
-<table>
+<table width="700">
   <tr>
     <th>Hole</th>
+
     <th>Flop</th>
     <th>Turn</th>
     <th>River</th>
   </tr>
 
+  <tr height="100">
+    <td><span class="card {{ mystatus['suits'][0] }}"> {{ mystatus['hole'][0] }}</span>
+      <span class="card {{ mystatus['suits'][1] }}">{{ mystatus['hole'][1] }}</span></td>
+
+    <td> <span class="card {{ mystatus['suits'][2] }}">{{ mystatus['flop'][0] }}</span>
+      <span class="card {{ mystatus['suits'][3] }}">{{ mystatus['flop'][1] }}</span>
+      <span class="card {{ mystatus['suits'][4] }}">{{ mystatus['flop'][2] }}</td></span>
+      <td> <span class="card {{ mystatus['suits'][5] }}">{{ mystatus['turn'] }}</span></td>
+      <td><span class="card {{ mystatus['suits'][6] }}">{{ mystatus['river'] }}</span></td>
+  </tr>
   <tr>
-    <td>{{ mystatus['hole'] }}</td>
-    <td>{{ mystatus['flop'] }}</td>
-    <td>{{ mystatus['turn'] }}</td>
-    <td>{{ mystatus['river'] }}</td>
+    <td colspan="2" align="left">
+{% if mystatus['dealer'] == mystatus['name'] %}
+<h2>
+  <a href="/deal/{{mystatus['name']}}" class="button">{{mystatus['phase']}} </a>
+</h2>
+{% endif %}
+    </td>
+    <td colspan="2" align="right"> <h2>
+      <a href="/admin/{{mystatus['name']}}" class="button bluebutton"> Admin </a>
+    </h2>
+    </td>
   </tr>
 </table>
 
@@ -42,16 +79,5 @@
   </ul>
   {% endif %}
 
-
-{% if mystatus['dealer'] == mystatus['name'] %}
-  <h2>
-  <a href="/deal/{{mystatus['name']}}" class="button">Press for {{mystatus['phase']}} </a>
-  </h2>
-{% endif %}
-
-  <h2>Something wrong?</h2>
-  <h3>
-    <a href="/admin/{{mystatus['name']}}" class="button bluebutton"> Admin </a>
-  </h3>
-
+</div>
 {% endblock %}
