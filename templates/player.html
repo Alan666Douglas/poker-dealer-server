@@ -1,38 +1,16 @@
 {% extends 'base.html' %}
-
-
 {% block head %}
-{% if mystatus['dealer'] != mystatus['name'] %}
-{% endif %}
 <meta http-equiv="refresh" content="2; url=/player/{{ mystatus['name'] }}">
 <title>Player {{mystatus['name']}}</title>
 <style>
- .container {position: absolute; left: 20px}
- .card {
-   border: none;
-   color: white;
-   padding: 15px 10px;
-   text-align: center;
-   text-decoration: none;
-   display: inline-block;
-   margin: 4px 2px;
-   cursor: pointer;
-   font-size: 1.5em;
-   block-size: 1.5em;
-   inline-size: 45px;
- }
- .h {background-color: #C00;}
- .c {background-color: #4A5;}
- .d {background-color: #44F;}
- .s {background-color: #222;}
 </style>
 {% endblock %}
 
 {% block body %}
 <div class="container" >
-<h1>Player - {{ mystatus['name'] }}
-  {% if mystatus['dealer'] == mystatus['name'] %} You are the dealer
-  {% else %} The dealer is {{mystatus['dealer']}} {% endif %}
+<h1>{{ mystatus['name'] }},
+  {% if mystatus['dealer'] == mystatus['name'] %} you are the dealer
+  {% else %} the dealer is {{mystatus['dealer']}} {% endif %}
 </h1>
 {{ mystatus['message'] }}
 
